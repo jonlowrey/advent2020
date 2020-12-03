@@ -3,7 +3,7 @@ var array = fs.readFileSync('input.txt').toString().split("\n");
 
 console.log('hello!');
 console.log('There are ' + array.length + ' lines')
-let expense1, expense2, expense3, solution;
+let correct = 0;
 
 
 
@@ -12,26 +12,20 @@ const isAnswer = (element) => {
 }
 
 array.forEach((element, index) => {
-    console.log(index + ': ' + element);
-    let int1 = parseInt(element);
-    array.forEach((element2) => {
-        let int2 = parseInt(element2);
-
-        array.forEach((element3) => {
-            let int3 = parseInt(element3);
-
-            let val = int1 + int2 + int3
-            if (val == 2020) {
-                expense1 = +element;
-                expense2 = +element2;
-                expense3 = +element3;
-                solution = expense1 * expense2 * expense3;
-            }
-        });
-
-    });
-
+    const minRegex = /([0-9]{1,2})-([0-9]{1,2}) ([a-z]): ([a-z]+)/
+    let tokens = element.match(minRegex)
+    let min = tokens[1];
+    let max = tokens[2];
+    let letter = tokens[3];
+    let password = tokens[4];
+    const regex = new RegExp(`[^${letter}]`, 'g');
+    let count = password.replace(regex,"").length;
+    if(count >= min && count<=max){
+        console.log('YEP');
+        correct++;
+    }
+    console.log(`${index}: ${min} ${max} ${letter} ${count} ${tokens} ${regex}`)
 
 });
 
-console.log(`Answer: ${expense1} * ${expense2} * ${expense3} = ${solution}`)
+console.log(`Answer: ${correct} valid passwords`)
