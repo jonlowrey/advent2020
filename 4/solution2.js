@@ -1,5 +1,6 @@
+//This solution is off by 1, not sure why. ¯\_(ツ)_/¯ 
 var fs = require('fs');
-var array = fs.readFileSync('invalid.txt').toString().split("\n");
+var array = fs.readFileSync('input.txt').toString().split("\n");
 
 console.log('hello!');
 console.log('There are ' + array.length + ' lines')
